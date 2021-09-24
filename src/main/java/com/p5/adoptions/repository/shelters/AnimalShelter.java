@@ -1,6 +1,7 @@
 package com.p5.adoptions.repository.shelters;
 
 import com.p5.adoptions.repository.cats.Cat;
+import com.p5.adoptions.repository.dogs.Dog;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,13 +23,18 @@ public class AnimalShelter
     private Integer id;
     @Column(unique = true)
     private String name;
+    private String location;
 
 
     //    Unidirectional OneToMany
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "shelter_id")
     private List<Cat> cats = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "shelter_id")
+    private List<Dog> dogs = new ArrayList<>();
     //    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     //    @JoinColumn(name = "cat_id")
     //    private Cat cat;
@@ -64,5 +70,29 @@ public class AnimalShelter
     {
         this.name = name;
         return this;
+    }
+
+    public List<Cat> getCats() {
+        return cats;
+    }
+
+    public void setCats(List<Cat> cats) {
+        this.cats = cats;
+    }
+
+    public List<Dog> getDogs() {
+        return dogs;
+    }
+
+    public void setDogs(List<Dog> dogs) {
+        this.dogs = dogs;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }
